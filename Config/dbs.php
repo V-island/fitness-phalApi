@@ -10,9 +10,9 @@ return array(
      * DB数据库服务器集群
      */
     'servers' => array(
-        'db_demo' => array(                         //服务器标记
+        'fitness' => array(                         //服务器标记
             'host'      => 'localhost',             //数据库域名
-            'name'      => 'phalapi',               //数据库名字
+            'name'      => 'fitness',               //数据库名字
             'user'      => 'root',                  //数据库用户名
             'password'  => '',	                    //数据库密码
             'port'      => '3306',                  //数据库端口
@@ -26,10 +26,10 @@ return array(
     'tables' => array(
         //通用路由
         '__default__' => array(
-            'prefix' => 'tbl_',
+            'prefix' => 'fitness_',
             'key' => 'id',
             'map' => array(
-                array('db' => 'db_demo'),
+                array('db' => 'fitness'),
             ),
         ),
 
