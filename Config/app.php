@@ -29,7 +29,7 @@ return array(
      * 扩展类库 - 微信小程序
      */
     'WechatMini'  => array(
-        'appid'      => '', // AppID(小程序ID)
+        'appid'      => 'wx37f3886e5163d6ae', // AppID(小程序ID)
         'secret'     => '', // AppSecret(小程序密钥)
         'url'        => 'https://api.weixin.qq.com/sns/jscode2session',
         'grant_type' => 'authorization_code'
