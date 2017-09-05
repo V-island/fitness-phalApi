@@ -42,9 +42,9 @@ $apiDirName = 'Fitness';
  * TODO: 请根据需要，添加需要显示的扩展路径，即./Api目录的父路径
  */
 $libraryPaths = array(
-    'Library/User/User',    // User扩展
-    'Library/Auth/Auth',    // Auth扩展
-    'Library/Qiniu/CDN',    // 七牛扩展
+    // 'Library/User/User',    // User扩展
+    // 'Library/Auth/Auth',    // Auth扩展
+    // 'Library/Qiniu/CDN',    // 七牛扩展
     'Library/WechatMini/WechatMini', // 微信小程序扩展
 );
 
