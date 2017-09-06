@@ -62,7 +62,7 @@ class WXLoginHelper {
 
         $reqData = json_decode($res['result'], true);
         if (isset($reqData['errcode'])) {
-            return DI()->debug 
+            return DI()->debug
                 ? array('code' => $reqData['errcode'],'message' => $reqData['errmsg'])
                 : array('code'=>ErrorCode::$RequestTokenFailed, 'message'=>'请求Token失败');
         }
@@ -74,7 +74,7 @@ class WXLoginHelper {
         /**
          * 生成3rd_session
          */
-        $session3rd = $this->randomFromDev(16);
+        $session3rd = $this->randomFromtime(16);
 
         $cache = DI()->cache;
         if (!empty($cache)) {
@@ -171,6 +171,21 @@ class WXLoginHelper {
         {
             trigger_error('Can not open /dev/urandom.');
         }
+        // convert from binary to string
+        $result = base64_encode($result);
+        // remove none url chars
+        $result = strtr($result, '+/', '-_');
+
+        return substr($result, 0, $len);
+    }
+
+    /**
+     * 读取当前时间戳获取随机数
+     * @param $len
+     * @return mixed|string
+     */
+    protected function randomFromtime($len) {
+        $result = time();
         // convert from binary to string
         $result = base64_encode($result);
         // remove none url chars
