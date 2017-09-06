@@ -2,7 +2,6 @@
 /**
  * 统一初始化
  */
- 
 /** ---------------- 根目录定义，自动加载 ---------------- **/
 
 date_default_timezone_set('Asia/Shanghai');
@@ -34,7 +33,7 @@ if ($di->debug) {
     $di->tracer->mark();
 
     error_reporting(E_ALL);
-    ini_set('display_errors', 'On'); 
+    ini_set('display_errors', 'On');
 }
 
 // 日记纪录
@@ -60,7 +59,7 @@ $di->filter = 'PhalApi_Filter_SimpleMD5';
 $di->cache = function () {
     return new PhalApi_Cache_Memcache(DI()->config->get('sys.mc'));
 };
- */
+*/
 
 /**
 // 支持JsonP的返回
