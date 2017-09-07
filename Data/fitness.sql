@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100121
 File Encoding         : 65001
 
-Date: 2017-09-04 18:49:28
+Date: 2017-09-07 17:43:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -58,7 +58,7 @@ CREATE TABLE `fitness_items_rule` (
 DROP TABLE IF EXISTS `fitness_record`;
 CREATE TABLE `fitness_record` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `u_id` int(11) NOT NULL COMMENT '用户ID',
+  `user_id` int(11) NOT NULL COMMENT '用户ID',
   `sign` int(5) NOT NULL DEFAULT '0' COMMENT '连续签到次数',
   `content` varchar(1500) NOT NULL DEFAULT '' COMMENT '锻炼内容',
   `createtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -73,34 +73,16 @@ CREATE TABLE `fitness_record` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for fitness_token
--- ----------------------------
-DROP TABLE IF EXISTS `fitness_token`;
-CREATE TABLE `fitness_token` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '索引id',
-  `u_id` int(11) NOT NULL COMMENT '用户id',
-  `token` varchar(50) NOT NULL COMMENT '登录令牌',
-  `time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '时间',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of fitness_token
--- ----------------------------
-
--- ----------------------------
 -- Table structure for fitness_user
 -- ----------------------------
 DROP TABLE IF EXISTS `fitness_user`;
 CREATE TABLE `fitness_user` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `name` varchar(255) NOT NULL COMMENT '用户名称',
-  `nickname` varchar(255) DEFAULT NULL COMMENT '昵称',
-  `password` varchar(255) NOT NULL COMMENT '密码',
-  `createtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `updatetime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
-  `weigh` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '权重',
-  `status` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
+  `id` bigint(10) NOT NULL AUTO_INCREMENT,
+  `wx_openid` varchar(28) DEFAULT '' COMMENT '微信OPENID',
+  `wx_token` varchar(150) DEFAULT '' COMMENT '微信TOKEN',
+  `wx_expires_in` int(10) DEFAULT '0' COMMENT '微信失效时间',
+  `user_id` bigint(10) DEFAULT '0' COMMENT '绑定的用户ID',
+  `reg_time` int(11) DEFAULT '0' COMMENT '注册时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

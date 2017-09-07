@@ -54,12 +54,12 @@ SL('zh_cn');
 $di->filter = 'PhalApi_Filter_SimpleMD5';
  */
 
-/**
+
 // 缓存 - Memcache/Memcached
 $di->cache = function () {
     return new PhalApi_Cache_Memcache(DI()->config->get('sys.mc'));
 };
-*/
+
 
 /**
 // 支持JsonP的返回

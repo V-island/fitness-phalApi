@@ -14,7 +14,7 @@ class Api_Default extends PhalApi_Api {
             ),
         );
 	}
-	
+
 	/**
 	 * 默认接口服务
 	 * @return string title 标题

@@ -185,7 +185,7 @@ class WXLoginHelper {
      * @return mixed|string
      */
     protected function randomFromtime($len) {
-        $result = time();
+        $result = $_SERVER['REQUEST_TIME'];
         // convert from binary to string
         $result = base64_encode($result);
         // remove none url chars
