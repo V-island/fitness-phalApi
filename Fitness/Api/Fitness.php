@@ -10,7 +10,7 @@ class Api_Fitness extends PhalApi_Api {
     {
         return array(
             'getUserInfo' => array(
-                'otherUserId' => array('name' => 'other_user_id', 'type' => 'int', 'min' => 1, 'require' => true),
+                'session3rd' => array('name' => 'session3rd', 'type' => 'string', 'require' => true),
             ),
         );
     }
@@ -21,22 +21,15 @@ class Api_Fitness extends PhalApi_Api {
     public function getUserInfo() {
         $rs = array('code' => 0, 'info' => array(), 'msg' => '');
 
-        DI()->userLite->check(true);
-
-        $domain = new Domain_User_User_Info();
-        $info = $domain->getUserInfo($this->otherUserId);
-
+        $domain = new Domain_Fitness();
+        $info = $domain->getUserInfo($this->session3rd);
         if (empty($info)) {
             $rs['code'] = 1;
             $rs['msg'] = T('can not get user info');
-
-            DI()->logger->debug('can not get user info', $this->otherUserId);
-
+            DI()->logger->debug('can not get user info', $this->session3rd);
             return $rs;
         }
-
         $rs['info'] = $info;
-
         return $rs;
     }
 }

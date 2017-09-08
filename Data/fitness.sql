@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100121
 File Encoding         : 65001
 
-Date: 2017-09-07 17:43:23
+Date: 2017-09-08 16:22:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -79,9 +79,6 @@ DROP TABLE IF EXISTS `fitness_user`;
 CREATE TABLE `fitness_user` (
   `id` bigint(10) NOT NULL AUTO_INCREMENT,
   `wx_openid` varchar(28) DEFAULT '' COMMENT '微信OPENID',
-  `wx_token` varchar(150) DEFAULT '' COMMENT '微信TOKEN',
-  `wx_expires_in` int(10) DEFAULT '0' COMMENT '微信失效时间',
-  `user_id` bigint(10) DEFAULT '0' COMMENT '绑定的用户ID',
   `reg_time` int(11) DEFAULT '0' COMMENT '注册时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
