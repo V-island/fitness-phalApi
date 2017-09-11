@@ -14,4 +14,7 @@ return array(
     'can not get user info' => '无法获取用户信息',
     'The login status has expired' => '登录态已过期',
     'The server cache is not set' => '服务器缓存未设置',
+    'New user is successful' => '新建用户成功',
+    'Old user, no history' => '老用户，无历史记录',
+    'The request was successful' => '请求成功',
 );

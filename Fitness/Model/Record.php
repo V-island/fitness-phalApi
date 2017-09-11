@@ -20,4 +20,10 @@ class Model_Record extends PhalApi_Model_NotORM {
     protected function getTableName($id) {
         return 'record';
     }
+    public function getByFetch($userId) {
+        return $this->getORM()
+            ->select('*')
+            ->where('user_id', $userId)
+            ->fetch();
+    }
 }
