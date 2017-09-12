@@ -34,12 +34,11 @@ class Domain_Fitness {
     public function userRecord($userId, $sign, $duration, $content)
     {
         $fetch = $this->getUserInfo($userId);
-        $update = data('y-m-d', $fetch['updatetime']);
-        $current = data('y-m-d');
+        $update = date('y-m-d', $fetch['updatetime']);
+        $current = date('y-m-d');
         $modelRecord = new Model_Record();
         if ($update == $current) {
-            $userRecord = $modelRecord->update(array(
-                'user_id'   => $userId,
+            $userRecord = $modelRecord->update($fetch['id'],array(
                 'sign'      => $sign,
                 'duration'  => $duration,
                 'content'   => $content,

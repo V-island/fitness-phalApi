@@ -41,6 +41,8 @@ class Api_Fitness extends PhalApi_Api {
 
     /**
      * 用户信息
+     *
+     * @desc 使用微信小程序登录后,初次获取用户累计签到数据
      * @return array  info  最新一条用户历史记录数据
      */
     public function getUserInfo() {
@@ -59,12 +61,24 @@ class Api_Fitness extends PhalApi_Api {
             DI()->logger->debug('can not get user info', $this->session3rd);
             return $rs;
         }
+        if (is_string($info)){
+            $rs['code'] = 200;
+            $rs['info'] = array(
+                'sign'      => 0,
+                'duration'  => 0,
+                'content'   => null
+            );
+            $rs['msg'] = T('New user is successful');
+            return $rs;
+        }
         $rs['info'] = $info;
         return $rs;
     }
 
     /**
      * 写入用户锻炼数据
+     *
+     * @desc 锻炼结束后,向数据提交当前锻炼数据
      */
     public function userRecord() {
         $rs = array('code' => 200, 'msg' => T('The request was successful'));
@@ -75,7 +89,7 @@ class Api_Fitness extends PhalApi_Api {
         }
         $domain = new Domain_Fitness();
         $userId = $domain->getUserId($openId);
-        $info = $domain->userRecord($userId, $this->sign, $this->duration, $this->content,);
+        $info = $domain->userRecord($userId, $this->sign, $this->duration, $this->content);
         if (empty($info)) {
             $rs['code'] = 0;
             $rs['msg'] = T('Database write failed');

@@ -15,5 +15,6 @@ return array(
     'The login status has expired' => '登录态已过期',
     'The server cache is not set' => '服务器缓存未设置',
     'The request was successful' => '请求成功',
+    'New user is successful' => '新建用户成功',
     'Database write failed' => '数据库写入失败',
 );
