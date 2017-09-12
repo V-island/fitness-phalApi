@@ -24,6 +24,6 @@ class Model_Record extends PhalApi_Model_NotORM {
         return $this->getORM()
             ->select('*')
             ->where('user_id', $userId)
-            ->fetch();
+            ->fetchOne();
     }
 }

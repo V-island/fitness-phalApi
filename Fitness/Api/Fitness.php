@@ -12,6 +12,12 @@ class Api_Fitness extends PhalApi_Api {
             'getUserInfo' => array(
                 'session3rd' => array('name' => 'session3rd', 'type' => 'string', 'require' => true),
             ),
+            'userRecord' => array(
+                'session3rd' => array('name' => 'session3rd', 'type' => 'string', 'require' => true),
+                'sign'       => array('name' => 'sign', 'type' => 'int', 'default' => 0, 'desc' => '连续签到次数'),
+                'duration'   => array('name' => 'duration', 'type' => 'int', 'default' => 0, 'desc' => '锻炼时长'),
+                'content'    => array('name' => 'content', 'type' => 'array', 'desc' => '锻炼内容', 'require' => true),
+            ),
         );
     }
 
@@ -35,30 +41,46 @@ class Api_Fitness extends PhalApi_Api {
 
     /**
      * 用户信息
-     * @return string title 标题
+     * @return array  info  最新一条用户历史记录数据
      */
     public function getUserInfo() {
         $rs = array('code' => 200, 'info' => array(), 'msg' => T('The request was successful'));
 
-        $wx_check = $this->checkSession($this->session3rd);
-        if(is_array($wx_check)) {
-            return $wx_check;
+        $openId = $this->checkSession($this->session3rd);
+        if(is_array($openId)) {
+            return $openId;
         }
         $domain = new Domain_Fitness();
-        $info = $domain->getUserInfo($wx_check);
+        $userId = $domain->getUserId($openId);
+        $info = $domain->getUserInfo($userId);
         if (empty($info)) {
             $rs['code'] = 0;
             $rs['msg'] = T('can not get user info');
             DI()->logger->debug('can not get user info', $this->session3rd);
             return $rs;
         }
-        if (is_string($info)) {
-            $rs['code'] = 1;
-            $rs['info'] = array('sign' => 0, 'duration' => 0, 'content' => null);
-            $rs['msg'] = $info;
+        $rs['info'] = $info;
+        return $rs;
+    }
+
+    /**
+     * 写入用户锻炼数据
+     */
+    public function userRecord() {
+        $rs = array('code' => 200, 'msg' => T('The request was successful'));
+
+        $openId = $this->checkSession($this->session3rd);
+        if(is_array($openId)) {
+            return $openId;
+        }
+        $domain = new Domain_Fitness();
+        $userId = $domain->getUserId($openId);
+        $info = $domain->userRecord($userId, $this->sign, $this->duration, $this->content,);
+        if (empty($info)) {
+            $rs['code'] = 0;
+            $rs['msg'] = T('Database write failed');
             return $rs;
         }
-        $rs['info'] = $info;
         return $rs;
     }
 }

@@ -1,24 +1,61 @@
 <?php
 
 class Domain_Fitness {
-
-    public function getUserInfo($openId) {
+    public function getUserId($openId)
+    {
         $modelUser = new Model_User();
         $userId = $modelUser->getByUserId($openId);
 
         if (empty($userId)) {
             $userId = $modelUser->insert(array(
-                'wx_openid'       => $wx_check['openid'],
+                'wx_openid'       => $openId,
                 'reg_time'        => $_SERVER['REQUEST_TIME'],
             ));
-            return T('New user is successful');
+            return $userId;
         }
+        return $userId;
+    }
+    public function getUserInfo($userId) {
         $modelRecord = new Model_Record();
-        $fetch = $modelRecord->getByFetch($openId);
+        $fetch = $modelRecord->getByFetch($userId);
         if (empty($fetch)) {
-            return T('Old user, no history');
+            $fetch = $modelRecord->insert(array(
+                'user_id'   => $userId,
+                'sign'      => 0,
+                'duration'  => 0,
+                'content'   => null,
+                'createtime'=> $_SERVER['REQUEST_TIME'],
+                'updatetime'=> $_SERVER['REQUEST_TIME'],
+            ));
+            return $fetch;
         }
         return $fetch;
+    }
+    public function userRecord($userId, $sign, $duration, $content)
+    {
+        $fetch = $this->getUserInfo($userId);
+        $update = data('y-m-d', $fetch['updatetime']);
+        $current = data('y-m-d');
+        $modelRecord = new Model_Record();
+        if ($update == $current) {
+            $userRecord = $modelRecord->update(array(
+                'user_id'   => $userId,
+                'sign'      => $sign,
+                'duration'  => $duration,
+                'content'   => $content,
+                'updatetime'=> $_SERVER['REQUEST_TIME'],
+            ));
+            return $userRecord;
+        }
+        $userRecord = $modelRecord->insert(array(
+            'user_id'   => $userId,
+            'sign'      => $sign,
+            'duration'  => $duration,
+            'content'   => $content,
+            'createtime'=> $_SERVER['REQUEST_TIME'],
+            'updatetime'=> $_SERVER['REQUEST_TIME'],
+        ));
+        return $userRecord;
     }
 
 }
