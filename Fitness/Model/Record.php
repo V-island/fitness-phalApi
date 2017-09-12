@@ -23,7 +23,15 @@ class Model_Record extends PhalApi_Model_NotORM {
     public function getByFetch($userId) {
         return $this->getORM()
             ->select('*')
+            ->order('createtime DESC')
             ->where('user_id', $userId)
             ->fetchOne();
+    }
+    public function getByAllFetch($userId) {
+        return $this->getORM()
+            ->select('*')
+            ->order('createtime DESC')
+            ->where('user_id', $userId)
+            ->fetchAll();
     }
 }

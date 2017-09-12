@@ -17,7 +17,7 @@ class Domain_Fitness {
     }
     public function getUserInfo($userId) {
         $modelRecord = new Model_Record();
-        $fetch = $modelRecord->getByFetch($userId);
+        $fetch = $modelRecord->getByAllFetch($userId);
         if (empty($fetch)) {
             $fetch = $modelRecord->insert(array(
                 'user_id'   => $userId,
@@ -33,18 +33,20 @@ class Domain_Fitness {
     }
     public function userRecord($userId, $sign, $duration, $content)
     {
-        $fetch = $this->getUserInfo($userId);
-        $update = date('y-m-d', $fetch['updatetime']);
-        $current = date('y-m-d');
         $modelRecord = new Model_Record();
-        if ($update == $current) {
-            $userRecord = $modelRecord->update($fetch['id'],array(
-                'sign'      => $sign,
-                'duration'  => $duration,
-                'content'   => $content,
-                'updatetime'=> $_SERVER['REQUEST_TIME'],
-            ));
-            return $userRecord;
+        $fetch = $modelRecord->getByFetch($userId);
+        if (!empty($fetch)) {
+            $update = date('y-m-d', $fetch['createtime']);
+            $current = date('y-m-d');
+            if ($update == $current) {
+                $userRecord = $modelRecord->update($fetch['id'],array(
+                    'sign'      => $sign,
+                    'duration'  => $duration,
+                    'content'   => $content,
+                    'updatetime'=> $_SERVER['REQUEST_TIME'],
+                ));
+                return $userRecord;
+            }
         }
         $userRecord = $modelRecord->insert(array(
             'user_id'   => $userId,
