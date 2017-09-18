@@ -1,19 +1,24 @@
 <?php
 
 class Domain_Rule {
-    public function getUserId($openId)
+    public function setItems($data)
     {
-        $modelUser = new Model_User();
-        $userId = $modelUser->getByUserId($openId);
-
-        if (empty($userId)) {
-            $userId = $modelUser->insert(array(
-                'wx_openid'       => $openId,
-                'reg_time'        => $_SERVER['REQUEST_TIME'],
-            ));
-            return $userId;
-        }
-        return $userId;
+        $modelItems = new Model_Items();
+        return $modelItems->insert($data);
     }
-
+    public function checkItems($id)
+    {
+    	$model = new Model_Items();
+    	return $model->get($id);
+    }
+    public function updateItems($id, $data)
+    {
+    	$model = new Model_Items();
+    	return $model->update($id, $data);
+    }
+    public function getList($id)
+    {
+    	$model = new Model_Items();
+    	return $model->getList($id);
+    }
 }

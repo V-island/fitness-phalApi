@@ -1,0 +1,79 @@
+{
+    "content": [
+        {
+            "id": 3,
+            "p_id": 1,
+            "name": "交替哑铃弯举",
+            "content": [
+                {
+                    "series": 3,
+                    "number": 15
+                },
+                {
+                    "series": 3,
+                    "number": 20
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "p_id": 1,
+            "name": "哑铃集中弯举",
+            "content": [
+                {
+                    "series": 3,
+                    "number": 15
+                },
+                {
+                    "series": 3,
+                    "number": 20
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "p_id": 1,
+            "name": "哑铃卧推",
+            "content": [
+                {
+                    "series": 3,
+                    "number": 15
+                },
+                {
+                    "series": 3,
+                    "number": 20
+                }
+            ]
+        },
+        {
+            "id": 8,
+            "p_id": 2,
+            "name": "平躺卷腹(上腹)",
+            "content": [
+                {
+                    "series": 3,
+                    "number": 15
+                },
+                {
+                    "series": 3,
+                    "number": 20
+                }
+            ]
+        },
+        {
+            "id": 9,
+            "p_id": 2,
+            "name": "垂直举腿(下腹)",
+            "content": [
+                {
+                    "series": 3,
+                    "number": 15
+                },
+                {
+                    "series": 3,
+                    "number": 20
+                }
+            ]
+        }
+    ]
+}

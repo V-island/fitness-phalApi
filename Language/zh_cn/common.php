@@ -17,4 +17,8 @@ return array(
     'The request was successful' => '请求成功',
     'New user is successful' => '新建用户成功',
     'Database write failed' => '数据库写入失败',
+    'Project entry is successful' => '项目录入成功',
+    'The project is edited successfully' => '项目编辑成功',
+    'There is no item with ID {id} in the database' => '数据库中没有ID为{id}的项目',
+    'Item editing failed' => '项目编辑失败',
 );
