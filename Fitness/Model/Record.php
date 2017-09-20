@@ -34,4 +34,13 @@ class Model_Record extends PhalApi_Model_NotORM {
             ->where('user_id', $userId)
             ->fetchAll();
     }
+    public function getTimeFetch($userId, $star, $end)
+    {
+        return $this->getORM()
+            ->select('*')
+            ->order('createtime DESC')
+            ->where('(updatetime >= ?  AND updatetime <= ?)', array($star, $end))
+            ->and('user_id = ?', $userId)
+            ->fetchAll();
+    }
 }

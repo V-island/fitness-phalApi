@@ -17,7 +17,7 @@ class Domain_Fitness {
     }
     public function getUserInfo($userId) {
         $modelRecord = new Model_Record();
-        $fetch = $modelRecord->getByAllFetch($userId);
+        $fetch = $modelRecord->getByFetch($userId);
         if (empty($fetch)) {
             $fetch = $modelRecord->insert(array(
                 'user_id'   => $userId,
@@ -29,6 +29,16 @@ class Domain_Fitness {
             ));
             return $fetch;
         }
+        return $fetch;
+    }
+    public function getRecord($userId, $star, $end)
+    {
+        $modelRecord = new Model_Record();
+        if ($star == 0 && $end == 0) {
+            $fetch = $modelRecord->getByFetch($userId);
+            return $fetch;
+        }
+        $fetch = $modelRecord->getTimeFetch($userId['id'], $star, $end);
         return $fetch;
     }
     public function userRecord($userId, $sign, $duration, $content)

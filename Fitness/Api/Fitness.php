@@ -12,6 +12,11 @@ class Api_Fitness extends PhalApi_Api {
             'getUserInfo' => array(
                 'session3rd' => array('name' => 'session3rd', 'type' => 'string', 'require' => true),
             ),
+            'getRecord' => array(
+                'session3rd' => array('name' => 'session3rd', 'type' => 'string', 'require' => true),
+                'startime' => array('name' => 'startime', 'type' => 'date', 'format' => 'timestamp', 'default' => 0, 'desc' => '开始时间'),
+                'endtime'   => array('name' => 'endtime', 'type' => 'date', 'format' => 'timestamp', 'default' => 0, 'desc' => '结束时间'),
+            ),
             'userRecord' => array(
                 'session3rd' => array('name' => 'session3rd', 'type' => 'string', 'require' => true),
                 'sign'       => array('name' => 'sign', 'type' => 'int', 'default' => 0, 'desc' => '连续签到次数'),
@@ -95,6 +100,39 @@ class Api_Fitness extends PhalApi_Api {
             $rs['msg'] = T('Database write failed');
             return $rs;
         }
+        return $rs;
+    }
+
+    /**
+     * 获取历史记录
+     * @desc 通过开始时间和结束时间搜索记录 默认不写为全部
+     *
+     * @return array  info  用户历史记录数据
+     */
+    public function getRecord(){
+        $rs = array('code' => 200, 'info' => array(), 'msg' => T('The request was successful'));
+
+        $star = $this->startime;
+        $end  = $this->endtime;
+        if ($star > $end) {
+            $rs['code'] = 0;
+            $rs['msg'] = T('Start is greater than the end time');
+            return $rs;
+        }
+
+        $openId = $this->checkSession($this->session3rd);
+        if(is_array($openId)) {
+            return $openId;
+        }
+        $domain = new Domain_Fitness();
+        $userId = $domain->getUserId($openId);
+        $info = $domain->getRecord($userId, $star, $end);
+        if (empty($info)) {
+            $rs['code'] = 0;
+            $rs['msg'] = T('can not get user info');
+            return $rs;
+        }
+        $rs['info'] = $info;
         return $rs;
     }
 }

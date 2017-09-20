@@ -21,4 +21,6 @@ return array(
     'The project is edited successfully' => '项目编辑成功',
     'There is no item with ID {id} in the database' => '数据库中没有ID为{id}的项目',
     'Item editing failed' => '项目编辑失败',
+    'Start is greater than the end time' => '开始是大于结束时间',
+    'The start or end time is empty' => '开始或结束时间为空',
 );

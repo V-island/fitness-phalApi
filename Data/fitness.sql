@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 100121
 File Encoding         : 65001
 
-Date: 2017-09-18 16:42:36
+Date: 2017-09-20 18:14:07
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -23,8 +23,8 @@ CREATE TABLE `fitness_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `p_id` int(11) NOT NULL COMMENT '锻炼项目ID',
   `name` varchar(255) NOT NULL COMMENT '项目名称',
-  `group` int(11) NOT NULL DEFAULT '3' COMMENT '组',
-  `number` int(11) NOT NULL DEFAULT '0' COMMENT '次数',
+  `series` int(11) DEFAULT '0' COMMENT '组',
+  `number` int(11) DEFAULT '0' COMMENT '次数',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `weight` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '权重',
   `status` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
